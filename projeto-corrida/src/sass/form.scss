@@ -1,24 +1,100 @@
-.creationForm {
+nav {
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  gap: 3px;
+  align-items: center;
+  justify-content: space-around;
+  color: #ffffff;
+  margin-bottom: 30px;
+
+  button {
+    background: linear-gradient(90deg, #EC4899 0%, #8B5CF6 100%, rgba(255, 255, 255, 0) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    border: none;
+    cursor: pointer;
+  }
+
+  select {
+    height: 35px;
+    width: 100px;
+    color: #233150;
+    border: none;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+
+  .select-asset {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+
+
+.floatForm {
+  width: 540px;
+  height: 625px;
+  background-color: #1c273f;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px 1000px rgba(0, 0, 0, 0.35);
+
+
+  padding: 30px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 
   * {
     font-size: 1.3rem;
   }
 
-  button {
-    margin: 10px 0;
+  .creationForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 3px;
   }
 
-  input {
-    height: 30px;
-    padding: 0 10px;
+  label {
+    color: #ffffff;
+
   }
 
+  input,
   select {
+    padding-left: 10px;
+    height: 65px;
+    color: #233150;
+    border: none;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    cursor: pointer;
+  }
 
-    height: 30px;
+  button {
+    width: 175px;
+    height: 55px;
+    border-radius: 48px;
+    border: none;
+    margin: 10px auto;
+    cursor: pointer;
+  }
+
+  .close {
+    position: absolute;
+    right: -50px;
+    top: -10px;
+    background: linear-gradient(90deg, #EC4899 0%, #8B5CF6 100%, rgba(255, 255, 255, 0) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    border: none;
+    cursor: pointer;
   }
 }

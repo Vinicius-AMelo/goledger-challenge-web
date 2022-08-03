@@ -74,6 +74,10 @@ const initialStateBodyReq = {
     },
   ],
 }
+export interface IEditiArgs {
+  key: string
+  asset: string
+}
 
 export interface IInputValues {
   name: string
@@ -97,6 +101,12 @@ interface IContextProps {
   setKey: Dispatch<SetStateAction<string>>
   details: number | null
   setDetails: Dispatch<SetStateAction<number | null>>
+  editArg: IEditiArgs
+  setEditArgs: Dispatch<SetStateAction<IEditiArgs>>
+  floatForm: boolean
+  setFloatForm: Dispatch<SetStateAction<boolean>>
+  editingMode: boolean
+  setEditingMode: Dispatch<SetStateAction<boolean>>
 }
 
 export const initialStateArgs = {
@@ -116,6 +126,9 @@ function Context({ children }: IProps) {
   const [assetDependencyList, setAssetDependencyList] = useState<IEventType[]>([])
   const [key, setKey] = useState<string>('')
   const [details, setDetails] = useState<number | null>(null)
+  const [editArg, setEditArgs] = useState<IEditiArgs>({ key: '', asset: '' })
+  const [floatForm, setFloatForm] = useState<boolean>(false)
+  const [editingMode, setEditingMode] = useState<boolean>(false)
 
   const eventDate = assetArgs.date ? new Date(assetArgs.date).toISOString() : new Date().toISOString()
   const randomID = uuidv4()
@@ -204,6 +217,12 @@ function Context({ children }: IProps) {
         setKey,
         details,
         setDetails,
+        editArg,
+        setEditArgs,
+        floatForm,
+        setFloatForm,
+        editingMode,
+        setEditingMode,
       }}
     >
       {children}

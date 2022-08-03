@@ -13,7 +13,17 @@ import {
 } from '../../Store/Context'
 
 function Display() {
-  const { assetType, assetTypeArr, setAssetArgs, assetArgs, details, setDetails } = useContext(AppContext)
+  const {
+    assetType,
+    assetTypeArr,
+    setAssetArgs,
+    details,
+    setDetails,
+    setEditArgs,
+    floatForm,
+    setFloatForm,
+    setEditingMode,
+  } = useContext(AppContext)
   const [assetDependency, setAssetDependency] = useState<string | null>(null)
 
   function toggleDetails(index: number) {
@@ -79,20 +89,10 @@ function Display() {
 
   function changeEvent(event: React.SyntheticEvent, index: number) {
     event.stopPropagation()
-    axios
-      .put(`${url}invoke/updateAsset`, {
-        update: {
-          '@assetType': assetTypeArr[index]['@assetType'],
-          '@key': assetTypeArr[index]['@key'],
-          prize: assetArgs.prize,
-          name: assetArgs.name,
-          model: assetArgs.model,
-        },
-      })
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error))
-
     setAssetArgs(initialStateArgs)
+    setEditArgs({ key: assetTypeArr[index]['@key'], asset: assetTypeArr[index]['@assetType'] })
+    setFloatForm(!floatForm)
+    setEditingMode(true)
   }
 
   return (
@@ -106,19 +106,11 @@ function Display() {
                 {level.name && level.name}
               </p>
               <div className="buttons">
-                <button
-                  className="btn btn-Delete"
-                  type="button"
-                  onClick={(event) => deleteEvent(event, index)}
-                >
-                  Deletar
-                </button>
-                <button
-                  className="btn btn-Delete"
-                  type="button"
-                  onClick={(event) => changeEvent(event, index)}
-                >
+                <button className="btn edit" type="button" onClick={(event) => changeEvent(event, index)}>
                   Editar
+                </button>
+                <button className="btn delete" type="button" onClick={(event) => deleteEvent(event, index)}>
+                  Deletar
                 </button>
               </div>
             </div>

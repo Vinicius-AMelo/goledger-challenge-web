@@ -6,21 +6,47 @@
   gap: 20px;
 
   .card {
-    border: 3px solid black;
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    overflow: hidden;
+    border-radius: 10px;
 
     .card-header {
       display: flex;
       justify-content: space-around;
-      background-color: aliceblue;
+      align-items: center;
+      background-color: #111827;
+      color: #ffffff;
       height: 35px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #233150;
+      }
 
       .buttons {
         width: 160px;
         display: flex;
         justify-content: space-between;
+
+        .btn {
+          background: linear-gradient(90deg, red 0%, red 100%, rgba(255, 255, 255, 0) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          border: none;
+          cursor: pointer;
+
+          &.edit {
+            background: linear-gradient(90deg, #EC4899 0%, #8B5CF6 100%, rgba(255, 255, 255, 0) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            ;
+          }
+        }
+
       }
 
       p {
@@ -29,8 +55,10 @@
     }
 
     .card-body {
-      background-color: blanchedalmond;
+      background-color: #1e1e1e;
+      color: #ffffff;
       padding: 10px;
+
 
       &.off {
         display: none;

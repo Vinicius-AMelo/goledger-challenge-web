@@ -19,9 +19,19 @@ function Form() {
     setAssetDependencyList,
     setKey,
     setDetails,
+    editArg,
+    floatForm,
+    setFloatForm,
+    setEditingMode,
+    editingMode,
   } = useContext(AppContext)
 
   const [resetForm, setResetForm] = useState<string>('initial')
+
+  function showFloatForm() {
+    setFloatForm(!floatForm)
+    setEditingMode(false)
+  }
 
   function handleKey(event: React.FormEvent) {
     const target = event.target as typeof event.target & { value: string; name: string }
@@ -71,8 +81,26 @@ function Form() {
       .catch((error) => console.log(error))
 
     setAssetArgs(initialStateArgs)
+    setFloatForm(false)
   }
 
+  function handleChange() {
+    axios
+      .put(`${url}invoke/updateAsset`, {
+        update: {
+          '@assetType': editArg.asset,
+          '@key': editArg.key,
+          prize: assetArgs.prize,
+          name: assetArgs.name,
+          model: assetArgs.model,
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error))
+
+    setFloatForm(!floatForm)
+    setEditingMode(false)
+  }
   useEffect(() => {
     axios
       .post(`${url}query/search`, {
@@ -101,56 +129,80 @@ function Form() {
   }, [assetTypeArr])
 
   return (
-    <form action="/" onSubmit={handleSubmit} className="creationForm">
-      <label htmlFor="select">Você esta visualizando:</label>
-      <select name="select" onChange={handleForm} defaultValue={assetType}>
-        <option value="event">Eventos</option>
-        <option value="team">Times</option>
-        <option value="driver">Pilotos</option>
-        <option value="car">Carros</option>
-      </select>
-      {assetType !== 'car' && (
-        <>
-          <label htmlFor="name">Nome:</label>
-          <input type="text" name="name" value={assetArgs.name} onChange={handleArgs} />
-        </>
-      )}
-      {assetType === 'car' && (
-        <>
-          <label htmlFor="model">Modelo:</label>
-          <input type="text" name="model" value={assetArgs.model} onChange={handleArgs} />
-        </>
-      )}
-      {assetType === 'event' && (
-        <>
-          <label htmlFor="prize">Premio:</label>
-          <input type="number" name="prize" value={assetArgs.prize} onChange={handleArgs} />
-          <label htmlFor="date">Data do Evento:</label>
-          <input type="date" name="date" value={assetArgs.date} onChange={handleArgs} />
-        </>
-      )}
-      <label htmlFor="">Time Vencedor:</label>
-      <select onChange={handleKey} name="select2" value={resetForm}>
-        {assetType !== 'car' ? (
-          <option disabled value="initial">
-            Selecionar Time
-          </option>
-        ) : (
-          <option disabled value="initial">
-            Selecionar Piloto
-          </option>
-        )}
+    <>
+      <nav>
+        <h1>Bem vindo!</h1>
+        <div className="select-asset">
+          <label htmlFor="select">Você esta visualizando:</label>
+          <select name="select" onChange={handleForm} defaultValue={assetType}>
+            <option value="event">Eventos</option>
+            <option value="team">Times</option>
+            <option value="driver">Pilotos</option>
+            <option value="car">Carros</option>
+          </select>
+          <button onClick={showFloatForm} type="button">
+            Criar Novo
+          </button>
+        </div>
+      </nav>
 
-        {assetDependencyList.map((event, index: number) => {
-          return (
-            <option key={index} value={event.id ? event.id : event['@key']}>
-              {event.name}
-            </option>
-          )
-        })}
-      </select>
-      <button type="submit">Criar</button>
-    </form>
+      {floatForm && (
+        <div className="floatForm">
+          <button type="button" className="close" onClick={showFloatForm}>
+            X
+          </button>
+          <form action="/" onSubmit={handleSubmit} className="creationForm">
+            {assetType !== 'car' && (
+              <>
+                <label htmlFor="name">Nome:</label>
+                <input type="text" name="name" value={assetArgs.name} onChange={handleArgs} />
+              </>
+            )}
+            {assetType === 'car' && (
+              <>
+                <label htmlFor="model">Modelo:</label>
+                <input type="text" name="model" value={assetArgs.model} onChange={handleArgs} />
+              </>
+            )}
+            {assetType === 'event' && (
+              <>
+                <label htmlFor="prize">Premio:</label>
+                <input type="number" name="prize" value={assetArgs.prize} onChange={handleArgs} />
+                <label htmlFor="date">Data do Evento:</label>
+                <input type="date" name="date" value={assetArgs.date} onChange={handleArgs} />
+              </>
+            )}
+            <label htmlFor="">Time Vencedor:</label>
+            <select onChange={handleKey} name="select2" value={resetForm}>
+              {assetType !== 'car' ? (
+                <option disabled value="initial">
+                  Selecionar Time
+                </option>
+              ) : (
+                <option disabled value="initial">
+                  Selecionar Piloto
+                </option>
+              )}
+
+              {assetDependencyList.map((event, index: number) => {
+                return (
+                  <option key={index} value={event.id ? event.id : event['@key']}>
+                    {event.name}
+                  </option>
+                )
+              })}
+            </select>
+            {editingMode ? (
+              <button type="button" onClick={handleChange}>
+                Editar
+              </button>
+            ) : (
+              <button type="submit">Criar</button>
+            )}
+          </form>
+        </div>
+      )}
+    </>
   )
 }
 
