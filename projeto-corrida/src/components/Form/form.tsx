@@ -3,6 +3,8 @@ import React, { useContext, useEffect } from 'react'
 
 import { AppContext, initialStateArgs, url } from '../../Store/Context'
 
+import '../../sass/form.scss'
+
 function Form() {
   const {
     assetType,
@@ -47,6 +49,10 @@ function Form() {
     if (inputName === 'model') {
       setAssetArgs((oldState) => ({ ...oldState, model: inputValues }))
     }
+    if (inputName === 'date') {
+      setAssetArgs((oldState) => ({ ...oldState, date: inputValues }))
+    }
+    console.log()
   }
 
   function handleSubmit(event: React.SyntheticEvent) {
@@ -110,16 +116,21 @@ function Form() {
         </label>
       )}
       {assetType === 'event' && (
-        <label htmlFor="prize">
-          Premio:
-          <input type="number" name="prize" value={assetArgs.prize} onChange={handleArgs} />
-        </label>
+        <>
+          <label htmlFor="prize">
+            Premio:
+            <input type="number" name="prize" value={assetArgs.prize} onChange={handleArgs} />
+          </label>
+          <label htmlFor="date">
+            <input type="date" name="date" value={assetArgs.date} onChange={handleArgs} />
+          </label>
+        </>
       )}
-      <select onChange={handleKey} name="select2" defaultValue={0}>
+      <select onChange={handleKey} name="select2" defaultValue={assetType}>
         {assetType !== 'car' ? (
-          <option value={0}>Selecionar Time</option>
+          <option value={assetType}>Selecionar Time</option>
         ) : (
-          <option value={0}>Selecionar Piloto</option>
+          <option value={assetType}>Selecionar Piloto</option>
         )}
 
         {assetDependencyList.map((event, index: number) => {

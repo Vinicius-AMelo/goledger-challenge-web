@@ -80,6 +80,7 @@ export interface IInputValues {
   prize: string
   model: string
   id: string
+  date: string
 }
 interface IContextProps {
   assetType: string
@@ -103,6 +104,7 @@ export const initialStateArgs = {
   prize: '',
   model: '',
   id: '',
+  date: '',
 }
 
 export const AppContext = createContext({} as IContextProps)
@@ -115,7 +117,7 @@ function Context({ children }: IProps) {
   const [key, setKey] = useState<string>('')
   const [details, setDetails] = useState<number | null>(null)
 
-  const now = new Date().toISOString()
+  const eventDate = assetArgs.date ? new Date(assetArgs.date).toISOString() : new Date().toISOString()
   const randomID = uuidv4()
     .replaceAll(/[A-Za-z]/g, '')
     .replace(/[-]/g, '')
@@ -125,7 +127,7 @@ function Context({ children }: IProps) {
         '@assetType': 'event',
         '@key': nanoid(),
         name: assetArgs.name,
-        date: now,
+        date: eventDate,
         prize: assetArgs.prize,
         winner: { '@assetType': 'team', id: key },
       },
