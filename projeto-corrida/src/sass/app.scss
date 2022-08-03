@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: #e2e2e2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+
+  .card {
+    width: 500px;
+    border: 2px solid black;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .card-header {
+    height: 35px;
+    width: 496px;
+    background-color: #f2f2f2;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    &:hover {
+      // background-color: #0000ff;
+    }
+
+    .buttons {
+      width: 140px;
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    .btn {
+      height: 27.5px;
+      width: 60px;
+    }
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    overflow: hidden;
+    transition: ease-in-out .3s;
+    width: 496px;
+    height: 170px;
+    z-index: 0;
+    padding-bottom: 35px;
+
+    &.off {
+      position: relative;
+
+      height: 30px;
+    }
+
+    &.on {
+      transform: translateY(30px);
+      background-color: #ff0000;
+      // border: 2px solid black;
+
+    }
+
+
+  }
+
+}
