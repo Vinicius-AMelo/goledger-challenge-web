@@ -1,28 +1,12 @@
-# GoLedger Challenge
+# Rodar projeto na máquina local
 
-In this challenge you will create a web interface to a blockchain application. In this application you must implement a race event, car and driver dashboard.
+Rode o comando `git clone https://github.com/Vinicius-AMelo/goledger-challenge-web.git`
 
-# Requirements
+## Entre na pasta do projeto
 
-- Your application should be able to add/remove/edit and show all cars, drivers, teams and events;
-- Use **React** (all UI libraries are allowed);
+Rode os comandos `cd goledger-challenge-web` e depois `cd projeto-corrida`
 
-## Instructions
+### Para iniciar o projeto
+Rode o comando `npm start`
 
-- Fork the repository [https://github.com/goledgerdev/goledger-challenge-web](https://github.com/goledgerdev/goledger-challenge-web)
-    - Fork it, do **NOT** clone it, since you will need to send us your forked repository
-    - If you **cannot** fork it, create a private repository and give access to `samuelvenzi` and `lucas-campelo`.
-- Create an web application using React. You will implement the basic operations provided by the API, which are `Create`, `Update`, `Delete` and `Search`.
-- Improve your application with a beautiful UI.
-
-## Server
-
-The data are obtained using a rest server at this address: `http://ec2-100-25-136-128.compute-1.amazonaws.com`
-
-Also, a Swagger with the endpoints specifications for the operations is provided at this address: `http://ec2-100-25-136-128.compute-1.amazonaws.com/api-docs/`.
-
-Tip: execute each operation in the Swagger for information on payload format and endpoint addresses.
-
-## Complete the challenge
-
-To complete the challenge, you must send us the link to your forked repository with the code of your application. Please, provide instructions to execute the code.
+E abra [http://localhost:3000](http://localhost:3000) para ver no browser.
