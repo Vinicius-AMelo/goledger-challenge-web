@@ -1,5 +1,6 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import axios from 'axios'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { AppContext, initialStateArgs, url } from '../../Store/Context'
 
@@ -20,10 +21,13 @@ function Form() {
     setDetails,
   } = useContext(AppContext)
 
+  const [resetForm, setResetForm] = useState<string>('initial')
+
   function handleKey(event: React.FormEvent) {
-    const target = event.target as typeof event.target & { value: string }
+    const target = event.target as typeof event.target & { value: string; name: string }
     const keyValue = target.value
     setKey(keyValue)
+    setResetForm(keyValue)
   }
 
   function handleForm(event: React.FormEvent) {
@@ -33,6 +37,7 @@ function Form() {
     console.log(selectName)
     event.preventDefault()
     setAssetType(selectValue)
+    setResetForm('initial')
     setDetails(null)
   }
 
@@ -96,41 +101,44 @@ function Form() {
   }, [assetTypeArr])
 
   return (
-    <form action="/" onSubmit={handleSubmit}>
+    <form action="/" onSubmit={handleSubmit} className="creationForm">
+      <label htmlFor="select">Você esta visualizando:</label>
       <select name="select" onChange={handleForm} defaultValue={assetType}>
-        <option value="event">Evento</option>
-        <option value="team">Time</option>
-        <option value="driver">Piloto</option>
-        <option value="car">Carro</option>
+        <option value="event">Eventos</option>
+        <option value="team">Times</option>
+        <option value="driver">Pilotos</option>
+        <option value="car">Carros</option>
       </select>
       {assetType !== 'car' && (
-        <label htmlFor="name">
-          Nome:
+        <>
+          <label htmlFor="name">Nome:</label>
           <input type="text" name="name" value={assetArgs.name} onChange={handleArgs} />
-        </label>
+        </>
       )}
       {assetType === 'car' && (
-        <label htmlFor="model">
-          Modelo:
+        <>
+          <label htmlFor="model">Modelo:</label>
           <input type="text" name="model" value={assetArgs.model} onChange={handleArgs} />
-        </label>
+        </>
       )}
       {assetType === 'event' && (
         <>
-          <label htmlFor="prize">
-            Premio:
-            <input type="number" name="prize" value={assetArgs.prize} onChange={handleArgs} />
-          </label>
-          <label htmlFor="date">
-            <input type="date" name="date" value={assetArgs.date} onChange={handleArgs} />
-          </label>
+          <label htmlFor="prize">Premio:</label>
+          <input type="number" name="prize" value={assetArgs.prize} onChange={handleArgs} />
+          <label htmlFor="date">Data do Evento:</label>
+          <input type="date" name="date" value={assetArgs.date} onChange={handleArgs} />
         </>
       )}
-      <select onChange={handleKey} name="select2" defaultValue={assetType}>
+      <label htmlFor="">Time Vencedor:</label>
+      <select onChange={handleKey} name="select2" value={resetForm}>
         {assetType !== 'car' ? (
-          <option value={assetType}>Selecionar Time</option>
+          <option disabled value="initial">
+            Selecionar Time
+          </option>
         ) : (
-          <option value={assetType}>Selecionar Piloto</option>
+          <option disabled value="initial">
+            Selecionar Piloto
+          </option>
         )}
 
         {assetDependencyList.map((event, index: number) => {

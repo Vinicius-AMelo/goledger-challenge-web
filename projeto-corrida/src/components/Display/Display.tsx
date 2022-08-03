@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useContext, useState } from 'react'
+import '../../sass/display.scss'
 
 import {
   AppContext,
@@ -98,9 +99,12 @@ function Display() {
     <div className="container">
       {assetTypeArr.map((level: IEventType, index: number) => {
         return (
-          <div key={index} className="card ">
-            <div className="card-header" onClick={() => toggleDetails(index)}>
-              <p>Corrida X</p>
+          <div key={index} className="card " onClick={() => toggleDetails(index)}>
+            <div className="card-header">
+              <p>
+                {level.model && level.model}
+                {level.name && level.name}
+              </p>
               <div className="buttons">
                 <button
                   className="btn btn-Delete"
