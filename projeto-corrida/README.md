@@ -10,7 +10,7 @@ Rode os comandos `cd goledger-challenge-web` e depois `cd projeto-corrida`
 
 Rode o comando `npm install`
 
-### Iniciae o projeto
+## Inicie o projeto
 
 Rode o comando `npm start`
 
